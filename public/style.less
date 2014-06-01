@@ -2,3 +2,36 @@ body {
     color: #e3c9b8;
     background: #540707;
 }
+
+a {
+    color: white;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+#sluts {
+    .list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .item {
+            border: 1px solid rgb(187, 77, 77);
+            width: 49%;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            padding: 20px;
+            position: relative;
+
+            button {
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                &:after {
+                    content: "x";
+                }
+            }
+        }
+    }
+}
