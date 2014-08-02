@@ -27,11 +27,11 @@ require([
     "underscore",
     "backbone",
     "mustache",
-    "text!modules/slut/sluts.html",
-    "text!modules/slut/slut.html",
-    "text!modules/slut/slut.details.html"
+    "modules/slut/SlutDetailsView",
+    "modules/slut/SlutsView",
+    "modules/slut/SlutsCollection"
 
-], function($, _, Backbone, Mustache, tplSluts, tplSlut, tplSlutDetails) {
+], function($, _, Backbone, Mustache, SlutDetailsView, SlutsView, SlutsCollection) {
     'use strict';
 
     $(function(){
@@ -48,7 +48,7 @@ require([
             routers: {},
 
             init: function() {
-                app.collections.sluts = new app.collections.Sluts;
+                app.collections.sluts = new SlutsCollection;
                 app.collections.sluts.reset(window.whores);
                 app.routers.main = new app.routers.Main;
                 Backbone.history.start({pushState: true});
@@ -66,98 +66,16 @@ require([
                 "*foo": "sluts"
             },
             sluts: function() {
-                app.views.sluts = new app.views.Sluts({
+                app.views.sluts = new SlutsView({
                     collection: app.collections.sluts
                 });
                 $("body").empty().html(app.views.sluts.render().el);
             },
             slut: function(id) {
-                app.views.slutDetails = new app.views.SlutDetails({
+                app.views.slutDetails = new SlutDetailsView({
                     model: app.collections.sluts.get(id)
                 });
                 $("body").empty().html(app.views.slutDetails.render().el);
-            }
-        });
-
-
-        // Модель шлюхи
-        app.models.Slut = Backbone.Model;
-
-
-        /**
-         * Коллекция шлюх
-         */
-        app.collections.Sluts = Backbone.Collection.extend({
-            model: app.models.Slut
-        });
-
-
-        /**
-         * View для шлюх
-         */
-        app.views.Sluts = Backbone.View.extend({
-            tagName: 'div',
-            id: 'sluts',
-
-            template: tplSluts,
-
-            initialize: function() {
-                this.listenTo(this.collection, 'all', this.render);
-            },
-
-            render: function(){
-                this.$el.html(Mustache.render(this.template, {}));
-                this.$(".list").empty();
-                this.collection.each(this.addOne, this);
-                return this;
-            },
-
-            addOne: function (model) {
-                var view = new app.views.Slut({
-                    model: model,
-                    collection: this.collection
-                });
-                this.$(".list").append(view.render().el);
-            }
-        });
-
-
-        /**
-         * View для шлюхи
-         */
-        app.views.Slut = Backbone.View.extend({
-            tagName: 'div',
-            className: 'item',
-
-            template: tplSlut,
-
-            events: {
-                "click .delete"         : "delete"
-            },
-
-            render: function () {
-                this.$el.html(Mustache.render(this.template, this.model.toJSON()));
-                return this;
-            },
-
-            delete: function(e) {
-                this.collection.remove(this.model);
-            }
-        });
-
-
-        /**
-         * View для шлюхи с детальным описанием
-         */
-        app.views.SlutDetails = Backbone.View.extend({
-            tagName: 'div',
-            id: 'slut-details',
-
-            template: tplSlutDetails,
-
-            render: function () {
-                this.$el.html(Mustache.render(this.template, this.model.toJSON()));
-                return this;
             }
         });
 
