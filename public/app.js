@@ -6,7 +6,8 @@ var config = {
         'jquery': 'libs/jquery',
         'underscore': 'libs/underscore',
         'backbone': 'libs/backbone',
-        'mustache': 'libs/mustache'
+        'mustache': 'libs/mustache',
+        'text': 'libs/require.text'
     },
     'shim': {
         'underscore': {
@@ -25,9 +26,12 @@ require([
     "jquery",
     "underscore",
     "backbone",
-    "mustache"
+    "mustache",
+    "text!modules/slut/sluts.html",
+    "text!modules/slut/slut.html",
+    "text!modules/slut/slut.details.html"
 
-], function($, _, Backbone, Mustache) {
+], function($, _, Backbone, Mustache, tplSluts, tplSlut, tplSlutDetails) {
     'use strict';
 
     $(function(){
@@ -95,7 +99,7 @@ require([
             tagName: 'div',
             id: 'sluts',
 
-            template: $('#tpl-sluts').html(),
+            template: tplSluts,
 
             initialize: function() {
                 this.listenTo(this.collection, 'all', this.render);
@@ -125,7 +129,7 @@ require([
             tagName: 'div',
             className: 'item',
 
-            template: $('#tpl-slut').html(),
+            template: tplSlut,
 
             events: {
                 "click .delete"         : "delete"
@@ -149,7 +153,7 @@ require([
             tagName: 'div',
             id: 'slut-details',
 
-            template: $('#tpl-slut-details').html(),
+            template: tplSlutDetails,
 
             render: function () {
                 this.$el.html(Mustache.render(this.template, this.model.toJSON()));
