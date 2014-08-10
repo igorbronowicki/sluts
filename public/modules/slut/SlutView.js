@@ -24,7 +24,7 @@ define([
             },
 
             delete: function(e) {
-                this.collection.remove(this.model);
+                this.collection.remove(this.model);//model.destroy
             }
         });
     }
