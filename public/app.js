@@ -25,66 +25,17 @@ require.config(config);
 
 require([
     "jquery",
-    "underscore",
     "backbone",
-    "mustache",
-    "modules/slut/SlutDetailsView",
-    "modules/slut/SlutsView",
-    "modules/slut/SlutsCollection"
+    "modules/slut/Router2"
 
-], function($, _, Backbone, Mustache, SlutDetailsView, SlutsView, SlutsCollection) {
+], function($, Backbone, Router) {
     'use strict';
 
     $(function(){
-        'use strict';
 
+        new Router;
+        Backbone.history.start({pushState: true});
 
-        /**
-         * Создание объекта нашего приложения (namespace).
-         */
-        window.app = {
-            views: {},
-            collections: {},
-            models: {},
-            routers: {},
-
-            init: function() {
-                app.collections.sluts = new SlutsCollection;
-                app.collections.sluts.reset(window.whores);
-                app.routers.main = new app.routers.Main;
-                Backbone.history.start({pushState: true});
-            }
-        };
-
-
-        /**
-         * Router нашего приложения.
-         */
-        app.routers.Main = Backbone.Router.extend({
-            routes: {
-                "": "sluts",
-                "sluts/:id": "slut",
-                "*foo": "sluts"
-            },
-            sluts: function() {
-                app.views.sluts = new SlutsView({
-                    collection: app.collections.sluts
-                });
-                $("body").empty().html(app.views.sluts.render().el);
-            },
-            slut: function(id) {
-                app.views.slutDetails = new SlutDetailsView({
-                    model: app.collections.sluts.get(id)
-                });
-                $("body").empty().html(app.views.slutDetails.render().el);
-            }
-        });
-
-
-        /**
-         * Инициализация нашего приложения
-         */
-        app.init();
     });
 
 });
