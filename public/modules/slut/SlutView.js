@@ -4,22 +4,22 @@
 
 define([
     "backbone",
-    "mustache",
+    "doT",
     "text!modules/slut/slut.html"
 
-    ], function(Backbone, Mustache, tplSlut) {
+    ], function(Backbone, doT, tplSlut) {
         return Backbone.View.extend({
             tagName: 'div',
             className: 'item',
 
-            template: tplSlut,
+            template: doT.template(tplSlut),
 
             events: {
-                "click .delete"         : "delete"
+                "click .delete": "delete"
             },
 
             render: function () {
-                this.$el.html(Mustache.render(this.template, this.model.toJSON()));
+                this.$el.html(this.template(this.model.toJSON()));
                 return this;
             },
 

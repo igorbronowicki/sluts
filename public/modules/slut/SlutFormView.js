@@ -4,10 +4,10 @@
 
 define([
     "backbone",
-    "mustache",
+    "doT",
     "text!modules/slut/slut.form.html"
 
-    ], function(Backbone, Mustache, tplSlutForm) {
+    ], function(Backbone, doT, tplSlutForm) {
         return Backbone.View.extend({
             id: 'slut-form',
 
@@ -15,10 +15,10 @@ define([
                 'click .add': 'add'
             },
 
-            template: tplSlutForm,
+            template: doT.template(tplSlutForm),
 
             render: function(){
-                this.$el.html(Mustache.render(this.template, {}));
+                this.$el.html(this.template());
                 return this;
             },
 

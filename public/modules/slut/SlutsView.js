@@ -4,17 +4,17 @@
 
 define([
     "backbone",
-    "mustache",
+    "doT",
     "text!modules/slut/sluts.html",
     "modules/slut/SlutView",
     "modules/slut/SlutFormView"
 
-    ], function(Backbone, Mustache, tplSluts, SlutView, SlutFormView) {
+    ], function(Backbone, doT, tplSluts, SlutView, SlutFormView) {
         return Backbone.View.extend({
             tagName: 'div',
             id: 'sluts',
 
-            template: tplSluts,
+            template: doT.template(tplSluts),
 
             initialize: function() {
                 this.listenTo(this.collection, 'all', this.render);
@@ -26,7 +26,7 @@ define([
             },
 
             render: function(){
-                this.$el.html(Mustache.render(this.template, {}));
+                this.$el.html(this.template());
                 this.$(".list").empty();
                 this.collection.each(this.addOne, this);
                 return this;

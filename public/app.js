@@ -7,7 +7,8 @@ var config = {
         'underscore': 'libs/underscore',
         'backbone': 'libs/backbone',
         'mustache': 'libs/mustache',
-        'text': 'libs/require.text'
+        'text': 'libs/require.text',
+        'doT': 'libs/doT.min'
     },
     'shim': {
         'underscore': {
