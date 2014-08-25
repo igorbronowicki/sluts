@@ -29,7 +29,6 @@ define([
 
             getData: function() {
                 var girl = {
-                    'id': 3455,
                     'name': this.$el.find('[name="name"]').val() || 'Ева',
                     'age': this.$el.find('[name="age"]').val() || '21',
                     'boobs': this.$el.find('[name="boobs"]').val() || '3',

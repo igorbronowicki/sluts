@@ -18,13 +18,17 @@ define([
                 "click .delete": "delete"
             },
 
+            initialize: function () {
+                this.listenTo(this.model, 'destroy', this.remove);
+            },
+
             render: function () {
                 this.$el.html(this.template(this.model.toJSON()));
                 return this;
             },
 
             delete: function(e) {
-                this.collection.remove(this.model);//model.destroy
+                this.model.destroy({wait: true});
             }
         });
     }

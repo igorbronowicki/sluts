@@ -10,7 +10,6 @@ define([
 
     ], function(Backbone, SlutDetailsView, SlutsView, SlutsCollection) {
         var slutsCollection = new SlutsCollection;
-        slutsCollection.reset(window.whores);
 
         return Backbone.Router.extend({
             routes: {
@@ -25,10 +24,14 @@ define([
                 $("body").empty().html(slutsView.render().el);
             },
             slut: function(id) {
-                var slutDetailsView = new SlutDetailsView({
-                    model: slutsCollection.get(id)
+                slutsCollection.fetch({
+                    success: function(collection) {
+                        var slutDetailsView = new SlutDetailsView({
+                            model: collection.get(id)
+                        });
+                        $("body").empty().html(slutDetailsView.render().el);
+                    }
                 });
-                $("body").empty().html(slutDetailsView.render().el);
             }
         });
     }

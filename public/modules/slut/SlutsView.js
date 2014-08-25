@@ -17,8 +17,9 @@ define([
             template: doT.template(tplSluts),
 
             initialize: function() {
-                this.listenTo(this.collection, 'all', this.render);
                 this.listenTo(this.collection, 'add', this.addOne);
+                this.listenTo(this.collection, 'reset', this.render);
+                this.collection.fetch({reset: true});
             },
 
             events: {
