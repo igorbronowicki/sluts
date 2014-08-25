@@ -3,14 +3,15 @@
  */
 
 define([
-    "backbone"
+    "backbone",
+    "modules/slut/SlutModel"
 
-    ], function(Backbone) {
+    ], function(Backbone, SlutModel) {
         return Backbone.Collection.extend({
             initialize: function() {
                 Backbone.on('addNewModel', this.add, this);
-            }
-            //model: SlutModel
+            },
+            model: SlutModel
         });
     }
 );
